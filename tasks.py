@@ -1,11 +1,24 @@
-from locust import constant, task, SequentialTaskSet
-
-data = {
-    "code": "print(16)"
-}
+import random
+from locust import constant, task, TaskSet
 
 
-class TaskSet(SequentialTaskSet):
+courses_quiz = [
+    {
+        'num': '162',
+        'code': 'print(7 + 9)'
+    },
+    {
+        'num': '286',
+        'code': '# Сложение'
+    },
+    {
+        'num': '429',
+        'code': '100000 ** 10'
+    }
+]
+
+
+class TaskSet(TaskSet):
     wait_time = constant(1)
 
     @task
@@ -15,12 +28,23 @@ class TaskSet(SequentialTaskSet):
 
     @task
     def complete_exersize(self):
-        url = 'https://stage.deepskills.ru/ipythonshell/v1/execute?exerciseId=162&userId=171&isGraphRequired=false'
-        response = self.client.post(url, json=data)
+        random_course = random.choice(courses_quiz)
+        url = f'https://stage.deepskills.ru/ipythonshell/v1/execute?exerciseId={random_course["num"]}&userId=171&isGraphRequired=false'
+        response = self.client.post(url, json=random_course['code'])
+        code_status = response.content.decode('utf-8')
+        print(code_status)
 
     @task
     def test_code(self):
-        url = 'https://stage.deepskills.ru/checkExercise/162?isGraphRequired=false&xp=70&userId=171'
-        response = self.client.post(url, json=data)
+        random_course = random.choice(courses_quiz)
+        url = f'https://stage.deepskills.ru/checkExercise/{random_course["num"]}?isGraphRequired=false&xp=70&userId=171'
+        response = self.client.post(url, json=courses_quiz[0]['code'])
+        code_status = response.content.decode('utf-8')
+        print(code_status)
 
-
+    @task
+    def courses_page(self):
+        url_name = 'Страница курсов'
+        url = 'https://stage.deepskills.ru/courses'
+        response = self.client.get(url)
+        print(f'{url_name} код {response.status_code}')
