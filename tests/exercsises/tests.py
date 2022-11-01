@@ -2,7 +2,6 @@ import random
 from locust import constant, task, TaskSet
 from tests.courses import tests as courses_test
 
-stage_url = 'https://stage.deepskills.ru/api/v1/'
 
 courses_quiz = [
     {
@@ -20,7 +19,7 @@ courses_quiz = [
 ]
 
 
-class TaskSet(TaskSet):
+class ExersiseTaskSet(TaskSet):
     wait_time = constant(1)
 
     @task
@@ -41,26 +40,4 @@ class TaskSet(TaskSet):
         url = f'https://stage.deepskills.ru/checkExercise/{random_course["num"]}?isGraphRequired=false&xp=70&userId=171'
         response = self.client.post(url, json=courses_quiz[0]['code'])
         code_status = response.content.decode('utf-8')
-
-    @task
-    def courses_page(self):
-        url_name = 'Страница курсов'
-        url = 'https://stage.deepskills.ru/courses'
-        response = self.client.get(url)
-        print(f'{url_name} код {response.status_code}')
-
-    @task
-    def get_profession(self):
-        url = stage_url + 'career_tracks/'
-        response = self.client.get(url)
-
-    @task
-    def get_detail_profession(self):
-        url = stage_url + 'career_tracks/1/'
-        response = self.client.get(url)
-
-    @task
-    def get_detail_admin_profession(self):
-        url = stage_url + 'admin/career_tracks/'
-        response = self.client.get(url)
-        print(response.status_code)
+        print('test code')
