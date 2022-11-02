@@ -1,9 +1,9 @@
 import random
-from locust import constant, task, TaskSet
+from locust import constant, task, TaskSet, SequentialTaskSet
 from settings import stage_url, headers
 
 
-class CourseTaskSet(TaskSet):
+class CourseTaskSet(SequentialTaskSet):
     wait_time = constant(1)
 
     @task
@@ -50,11 +50,6 @@ class CourseTaskSet(TaskSet):
         resonse = self.client.get(url)
 
     @task
-    def delete_course(self):
-        url = stage_url + '/api/v1/admin/courses/86/'
-        pass
-
-    @task
     def create_course(self):
         data = {
             'title': 'test',
@@ -64,10 +59,20 @@ class CourseTaskSet(TaskSet):
             'lang': 'sql',
             'time': '12',
         }
+        self.course_data = data
         url = stage_url + 'api/v1/courses/'
         response = self.client.post(url, headers=headers, data=data)
-        self.coure_id = response.json()['id']
+        self.course_id = response.json()['id']
+        print('ok')
 
     @task
-    def delete_task(self):
-        pass
+    def update_course(self):
+        url = stage_url + f'api/v1/courses/{self.course_id}'
+        response = self.client.patch(url, headers=headers, data=self.course_data)
+        print('updated_data')
+
+    @task
+    def delete_course(self):
+        url = stage_url + f'api/v1/admin/courses/{self.course_id}/'
+        response = self.client.delete(url, headers=headers)
+        print(response.status_code, 'all')
