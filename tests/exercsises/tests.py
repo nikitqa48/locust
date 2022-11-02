@@ -1,6 +1,5 @@
 import random
 from locust import constant, task, TaskSet
-from tests.courses import tests as courses_test
 
 
 courses_quiz = [
@@ -41,3 +40,4 @@ class ExersiseTaskSet(TaskSet):
         response = self.client.post(url, json=courses_quiz[0]['code'])
         code_status = response.content.decode('utf-8')
         print('test code')
+
