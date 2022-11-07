@@ -68,36 +68,3 @@ class ExersiseTaskSet(SequentialTaskSet):
     max_wait = 5000
     tasks = mytask
 
-    # @task
-    # def get_all_courses(self):
-    #     # https://stage.deepskills.ru/api/v1/admin/courses/data-types-in-python-for-data-science
-    #     url = stage_url + 'api/v1/courses/'
-    #     response = self.client.get(url)
-    #     json = response.json()
-    #     courses_slug = [i['slug'] for i in json]
-    #     url = stage_url + 'api/v1/courses/manipulating-data-with-pandas/'
-    #     response = self.client.get(url, headers=headers)
-    #     print(response.json())
-    #
-    #
-    # @task
-    # def redirect_exersize(self):
-    #     url = 'https://stage.deepskills.ru/courses/introduction-to-python/exercises/162'
-    #     response = self.client.get(url)
-    #
-    # @task
-    # def complete_exersize(self):
-    #     random_course = random.choice(courses_quiz)
-    #     url = f'https://stage.deepskills.ru/ipythonshell/v1/execute?exerciseId={random_course["num"]}&userId=171&isGraphRequired=false'
-    #     response = self.client.post(url, json=random_course['code'])
-    #     code_status = response.content.decode('utf-8')
-    #
-    # @task
-    # def test_code(self):
-    #     random_course = random.choice(courses_quiz)
-    #     url = f'https://stage.deepskills.ru/checkExercise/{random_course["num"]}?isGraphRequired=false&xp=70&userId=171'
-    #     response = self.client.post(url, json=courses_quiz[0]['code'])
-    #     code_status = response.content.decode('utf-8')
-    #     print('test code')
-    #
-    #
