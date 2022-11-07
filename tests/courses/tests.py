@@ -66,6 +66,19 @@ class CourseTaskSet(SequentialTaskSet):
         print('ok')
 
     @task
+    def create_exercises(self):
+        data = {
+            'course_id': self.course_id,
+            'course_part_id': '',
+            'description': 'preview',
+            'exercises_type': 'quiz',
+            'slug': f'course{self.course_id}',
+            'stuck_type': 'python',
+            'title': 'title1'
+        }
+        self.client.post()
+        
+    @task
     def update_course(self):
         url = stage_url + f'api/v1/courses/{self.course_id}'
         response = self.client.patch(url, headers=headers, data=self.course_data)

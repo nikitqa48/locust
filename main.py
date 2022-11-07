@@ -1,4 +1,4 @@
-from locust import HttpUser, TaskSet, task
+from locust import HttpUser, TaskSet, task, HttpLocust
 from tasks import TaskSet
 
 from tests.courses.tests import CourseTaskSet
@@ -8,8 +8,6 @@ from tests.progress.tests import ProgressTaskSet
 
 class WebsiteUser(HttpUser):
     @task
-    class TaskSets(ProgressTaskSet, CourseTaskSet):
+    class TaskSets(ExersiseTaskSet):
         pass
-
-
 
