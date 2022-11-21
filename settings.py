@@ -1,7 +1,7 @@
 stage_url = 'https://stage.deepskills.ru/'
 
 headers = {
-    'access-token': 'JzWgv9VgCrXbbwp28U7xrQ',
-    'client': 'V21tzusjDi_3nTVRqV8z0Q',
+    'access-token': 'Y_Jkfj5lVV8xOoFNd6LeTw',
+    'client': 'tRt43DRmjCexUzdGcRfvGw',
     'uid': 'prorok2050@yandex.ru'
 }

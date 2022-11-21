@@ -8,7 +8,7 @@ from tests.progress.tests import ProgressTaskSet
 
 class WebsiteUser(HttpUser):
     @task
-    class TaskSets(ProgressTaskSet, CourseTaskSet):
+    class TaskSets(ExersiseTaskSet):
         pass
 
 
